@@ -1,6 +1,7 @@
 package cardDeck
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -30,6 +31,14 @@ func Test_shuffleDeck(t *testing.T) {
 
 func Test_sort(t *testing.T) {
 	deck := createDeck(0)
-	sortDeck(deck, 4, 52/4 - 4, true)
-
+	numCardsPerHand := 11
+	hand1 := make([]Card, numCardsPerHand)
+	hand2 := make([]Card, numCardsPerHand)
+	hands := [][]Card{hand1, hand2}
+	sortDeck(deck, hands, numCardsPerHand, false)
+	fmt.Printf("%v\n", hand1)
+	fmt.Printf("%v\n", hand2)
+	if len(hand1) != 11 || len(hand2) != 11 {
+		t.Errorf("Deck not sorted correctly")
+	}
 }

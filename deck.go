@@ -1,6 +1,7 @@
 package cardDeck
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 )
@@ -11,8 +12,7 @@ type Card struct{
 }
 
 func main(){
-	deck := createDeck()
-	shuffleDeck(deck)
+
 }
 
 func createDeck(numJokers int) []Card{
@@ -50,6 +50,21 @@ func shuffleDeck(deck []Card){
 	rand.Shuffle(len(deck), func(i, j int) {deck[i], deck[j] = deck[j], deck[i]})
 }
 
-func sortDeck(deck []Card, hands, numCardsPerHand int, hasDraw bool){
-
+func sortDeck(deck []Card, hands [][]Card, numCardsPerHand int, hasDraw bool){
+	fmt.Printf("%v\n", deck)
+	fmt.Printf("%d\n", numCardsPerHand)
+	fmt.Printf("%d\n", len(hands))
+	if len(hands) * numCardsPerHand <= len(deck){
+		var cardNumber int
+		for i := 0; i < numCardsPerHand; i++{
+			for j := 0; j < len(hands); j++{
+				cardNumber = j + (len(hands)*i)
+				fmt.Printf("%d\n", cardNumber)
+				fmt.Printf("%v\n", deck[cardNumber])
+				hands[j] = append(hands[j], deck[cardNumber])
+			}
+		}
+	}else {
+		fmt.Printf("Cannot sort, incorrect number of cards requested.")
+	}
 }
